@@ -6,15 +6,14 @@ A responsive React and Node.js learning portal prototype for GUTech students, in
 
 Public Vercel deployment: https://gutech-lms-portal-two.vercel.app/.
 
-The frontend is deployed. The live database still needs the two Supabase migrations in `Backend/supabase/migrations/`, and the Node API must be deployed from `render.yaml` before backend-backed features are fully operational.
+The frontend and Node API are deployed on Vercel. To activate live data, run the two Supabase migrations in `Backend/supabase/migrations/` and set the API's private `SUPABASE_SERVICE_ROLE_KEY` environment variable in Vercel. Until both steps are complete, the site will show a database setup notice.
 
 ## Project layout
 
 - `Frontend/` — React 18, TypeScript, Vite, TanStack Query, Supabase Auth, responsive UI.
 - `Backend/` — Node.js, Express, TypeScript, Zod validation, Supabase JWT verification, server-only Supabase service client.
 - `Backend/supabase/migrations/` — database schema, role-based row-level security, storage policies, realtime configuration.
-- `render.yaml` — Render blueprint for the backend API.
-- `Frontend/vercel.json` — Vercel SPA route fallback.
+- `Backend/src/app.ts` — shared Express app for local and Vercel hosting.
 - `docs/feature-walkthrough-script.md` — 3–5 minute recording plan.
 
 ## Features in this prototype
@@ -57,28 +56,18 @@ There is no default admin password. Sign up and confirm your own account first. 
 
 ## Production deployment
 
-The repository is configured for a Vercel frontend and Render API deployment.
+The public frontend and Express API use separate Vercel projects connected to this GitHub repository.
 
-### 1. Deploy the API to Render
+### Activate Supabase
 
-1. First apply both Supabase migration files above in the same production Supabase project; the API health endpoint intentionally returns an error until the schema exists.
-1. Push this repository to GitHub and keep the repository root as the Blueprint location.
-2. In Render, choose **New → Blueprint**, select the repository, and approve the `render.yaml` service.
-3. In the API service’s Environment settings, provide `FRONTEND_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY`. Use the Supabase project URL and keys for the same project where the migrations were run. Keep the service role key only in Render.
-4. Deploy and check `https://<your-render-api>/health`.
+1. In Supabase Dashboard → **SQL Editor**, run `Backend/supabase/migrations/202610300001_initial_schema.sql`, then `Backend/supabase/migrations/202610300002_live_lms.sql`.
+2. In Vercel, open the `gutech-lms-api` project → **Settings → Environment Variables**.
+3. Add `SUPABASE_SERVICE_ROLE_KEY` as a **Sensitive** variable for **Production**. Get the private service_role/secret key from Supabase Dashboard → **Project Settings → API Keys**. Keep it only in the backend project; never add it to GitHub, the frontend project, or a chat message.
+4. Redeploy the API. Check `https://gutech-lms-api.vercel.app/health`; the response should show `connected.database: true`.
 
-### 2. Deploy the frontend to Vercel
+The backend project also needs `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `FRONTEND_URL`. The URL and publishable/anon key have been configured; `FRONTEND_URL` should equal the Vercel frontend origin. The frontend project needs `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and `VITE_API_URL=https://gutech-lms-api.vercel.app`.
 
-1. Import the same GitHub repository into Vercel.
-2. Set **Root Directory** to `Frontend`; Vercel will use its Vite build and `dist` output.
-3. Add these Production environment variables:
-   - `VITE_SUPABASE_URL` — same Supabase project URL.
-   - `VITE_SUPABASE_ANON_KEY` — publishable/anon key only.
-   - `VITE_API_URL` — the full Render API origin, for example `https://your-api.onrender.com` (no trailing slash).
-4. Deploy and copy the Vercel production URL.
-5. Set Render `FRONTEND_URL` to that exact Vercel origin, redeploy the API, then add the Vercel origin to Supabase Auth → **URL Configuration** → Site URL and Redirect URLs. Include the password-reset route as appropriate.
-
-### 3. Smoke-check before recording
+### Smoke-check before recording
 
 - Confirm `/health` reports `connected.database: true`.
 - Sign in as the administrator and open **Administration**.
