@@ -2,6 +2,12 @@
 
 A responsive React and Node.js learning portal prototype for GUTech students, instructors, and administrators. Supabase provides authentication, PostgreSQL data, private file storage, and row-level access control.
 
+## Live preview
+
+Public Vercel deployment: https://gutech-lms-portal-two.vercel.app/.
+
+The frontend is deployed. The live database still needs the two Supabase migrations in `Backend/supabase/migrations/`, and the Node API must be deployed from `render.yaml` before backend-backed features are fully operational.
+
 ## Project layout
 
 - `Frontend/` — React 18, TypeScript, Vite, TanStack Query, Supabase Auth, responsive UI.
