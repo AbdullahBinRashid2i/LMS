@@ -1,20 +1,4 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
 import { env } from './config/env.js';
-import healthRouter from './routes/health.js';
-import apiRouter from './routes/api.js';
-import { errorHandler, notFound } from './middleware/errors.js';
+import app from './app.js';
 
-const app = express();
-app.disable('x-powered-by');
-app.use(helmet());
-app.use(cors({ origin: env.FRONTEND_URL, methods: ['GET', 'POST', 'PATCH', 'DELETE'], allowedHeaders: ['Content-Type', 'Authorization'] }));
-app.use(express.json({ limit: '1mb' }));
-app.use(rateLimit({ windowMs: 60_000, limit: 120, standardHeaders: 'draft-7', legacyHeaders: false }));
-app.use('/health', healthRouter);
-app.use('/api', apiRouter);
-app.use(notFound);
-app.use(errorHandler);
 app.listen(env.PORT, () => console.log(`GUTech LMS API listening on port ${env.PORT}`));
