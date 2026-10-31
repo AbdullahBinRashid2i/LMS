@@ -63,9 +63,9 @@ The public frontend and Express API use separate Vercel projects connected to th
 1. In Supabase Dashboard → **SQL Editor**, run `Backend/supabase/migrations/202610300001_initial_schema.sql`, then `Backend/supabase/migrations/202610300002_live_lms.sql`.
 2. In Vercel, open the `gutech-lms-api` project → **Settings → Environment Variables**.
 3. Add `SUPABASE_SERVICE_ROLE_KEY` as a **Sensitive** variable for **Production**. Get the private service_role/secret key from Supabase Dashboard → **Project Settings → API Keys**. Keep it only in the backend project; never add it to GitHub, the frontend project, or a chat message.
-4. Redeploy the API. Check `https://gutech-lms-api.vercel.app/health`; the response should show `connected.database: true`.
+4. Redeploy the API. Check `https://gutech-lms-api-puce.vercel.app/health`; the response should show `connected.database: true`.
 
-The backend project also needs `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `FRONTEND_URL`. The URL and publishable/anon key have been configured; `FRONTEND_URL` should equal the Vercel frontend origin. The frontend project needs `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and `VITE_API_URL=https://gutech-lms-api.vercel.app`.
+The backend project also needs `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `FRONTEND_URL`. The URL and publishable/anon key have been configured; `FRONTEND_URL` should equal the Vercel frontend origin. The frontend project needs `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and `VITE_API_URL=https://gutech-lms-api-puce.vercel.app`.
 
 ### Smoke-check before recording
 
