@@ -17,9 +17,3 @@ services:
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
-      - key: AI_PROVIDER
-        value: openai
-      - key: AI_API_KEY
-        sync: false
-      - key: AI_MODEL
-        sync: false
