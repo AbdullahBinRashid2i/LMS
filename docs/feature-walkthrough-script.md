@@ -1,46 +1,86 @@
-# GUTech Portal walkthrough recording plan (about 4 minutes)
+# NotebookLM video script: GUTech Student & Faculty Portal
 
-Before recording:
-1. Confirm the API health page shows Supabase configured and database connected: https://gutech-lms-api-puce.vercel.app/health
-2. Create and confirm test student and teacher accounts. Follow the first-admin setup in `Backend/supabase/bootstrap_first_admin.sql` to promote your own confirmed account to admin. Never show passwords, confirmation links, API keys, or service-role values.
-3. Add a sample course, enroll the student, and create a sample assignment/quiz so the screens contain data.
+**Target length:** 3–4 minutes  
+**Format:** polished project explainer with narrated screenshots or short screen captures  
+**Audience:** instructors and evaluators who have not seen the project  
+**Tone:** clear, confident, student-presenter voice; explain technical terms simply  
+**Accuracy:** describe only features shown working in the supplied sources. Do not invent usage numbers, sample users, or features.
 
-## 0:00–0:25 — Introduction
+## Paste this direction into NotebookLM
 
-**Show:** The deployed GUTech portal.
+Create a concise, polished explainer video introducing the GUTech Student & Faculty Portal. Use a modern university technology aesthetic, readable labels, calm pacing, and clear narration. Use the supplied portal screenshots or screen captures as the visual source of truth; do not fabricate interface screens. Explain the student, teacher, and administrator workspaces, how Supabase stores account-specific information, and how the React frontend connects to the Node.js API. Keep AI tutoring clearly identified as future work. End with the live portal and GitHub repository links.
 
-**Say:** “This is the GUTech Student and Faculty Portal, built with React, a Node.js API, Supabase authentication, and a Supabase database. I’ll show how a student and administrator use it.”
+## Before generating
 
-## 0:25–1:00 — Sign-in and student dashboard
+Add this script and the project README as sources. Also add real screenshots or short screen captures of:
+- The student dashboard with a test account signed in
+- The teacher workspace
+- The administrator dashboard and **Administration** page
+- A real course or assignment workflow, if available
 
-**Show:** Sign in to the student test account. Point out its name and the courses or activity you prepared.
+The live site and database health page can be shown as links or end-card text, but a URL alone may not provide NotebookLM with reliable visuals. Do not include passwords, confirmation emails, API keys, or service-role keys in sources or recordings.
 
-**Say:** “Supabase verifies the account, and the portal loads that user’s saved records. The database keeps the information between visits and keeps each account’s data tied to the right user.”
+## Narration and visual plan
 
-## 1:00–1:45 — Admin and enrollment
+### Scene 1 — Meet the portal (0:00–0:25)
 
-**Show:** Sign in to your admin account, open **Administration**, show the account list, and enroll your test student in the sample course. If available, show changing the separate test account to teacher.
+**Visual:** Open with the GUTech portal title, then a supplied screenshot of the live portal.
 
-**Say:** “The admin area is available to accounts granted the admin role. Administrators can manage portal roles and enrollments. The admin account is created by promoting a confirmed account; there is no shared default admin password.”
+**Narration:**  
+“Welcome to the GUTech Student and Faculty Portal, a learning platform prototype for students, teachers, and administrators. It brings course activity and support tools into one place, with a different workspace for each role.”
 
-## 1:45–2:45 — Learning workflows
+### Scene 2 — Student workspace (0:25–0:55)
 
-**Show:** Open the sample course, submit a sample assignment as the student, then show the submission/grading view as the teacher. Take the sample quiz and show the result if time allows.
+**Visual:** Show the signed-in student home screen and a real course or assignment. Use a test account with sample data.
 
-**Say:** “Course activity is saved in Supabase. Private course files use protected storage, and quiz scoring is handled by the server.”
+**Narration:**  
+“Students can sign in to see their own courses, upcoming work, quizzes, resources, announcements, and study tools. Their dashboard is connected to their account, so the information comes from saved portal data instead of a shared sample profile.”
 
-## 2:45–3:20 — Other portal areas
+### Scene 3 — Teacher workspace (0:55–1:30)
 
-**Show:** Briefly show resources, announcements or chat, Help Desk, and the study timer only if each area has sample data and works in your demo.
+**Visual:** Show the teacher role label, faculty home screen, course management, and assignment or grading view, if configured.
 
-**Say:** “The prototype includes additional course and student-support areas. The live health check also confirms that the API can reach the database.”
+**Narration:**  
+“Teachers get a faculty workspace focused on teaching. From course management and assignments, they can organize course activity and review student work. The teacher view is separate from the student experience.”
 
-## 3:20–4:00 — AI-assisted workflow and architecture
+### Scene 4 — Administrator workspace (1:30–2:05)
 
-**Show:** The repository’s Frontend and Backend folders, Supabase migrations, README setup instructions, and a brief example of the AI-assisted development/review process.
+**Visual:** Show the administrator role label, distinct admin home screen, then open **Administration** and show account roles or enrollment controls.
 
-**Say:** “AI assistance helped accelerate implementation and review. The project separates the React frontend from the Node.js backend, and Supabase policies control access to saved data. AI tutoring and other AI learning features are future work.”
+**Narration:**  
+“Administrators have a separate control center for portal management. The Administration area provides account and role controls, while course tools support course setup and enrollment. Access depends on the signed-in account’s administrator role; there is no shared default admin password.”
 
-**End card:**
+### Scene 5 — How the data is connected (2:05–2:40)
+
+**Visual:** Show the API health page briefly, then a simple diagram: React frontend → Node.js API → Supabase authentication and database. Show the health result only if it currently reports the database as connected.
+
+**Narration:**  
+“The portal uses Supabase to authenticate accounts and store information such as profiles, courses, and learning activity. The React frontend communicates with a Node.js API, which connects to Supabase. This lets the portal load saved information for the signed-in account.”
+
+### Scene 6 — Architecture and honest scope (2:40–3:20)
+
+**Visual:** Show the repository’s Frontend and Backend folders, migration files, and README. Keep screens readable and do not show secret environment values.
+
+**Narration:**  
+“The code is organized into a React frontend and a Node.js backend, with Supabase migrations defining the database setup. This is a working prototype. AI tutoring, generated quizzes, and other AI learning features are future work and are not presented as active features.”
+
+### Scene 7 — Close (3:20–3:35)
+
+**Visual:** End card with the project name, portal URL, and GitHub repository.
+
+**Narration:**  
+“This is the GUTech Student and Faculty Portal: one connected platform with distinct student, teacher, and administrator experiences.”
+
+**End card links:**
 - Live portal: https://gutech-lms-portal-two.vercel.app/
+- API health: https://gutech-lms-api-puce.vercel.app/health
 - GitHub repository: https://github.com/AbdullahBinRashid2i/LMS
+
+## Final review checklist
+
+Before sharing the generated video, check that:
+- It uses the real supplied interface images and labels all three roles correctly.
+- No text claims AI tutoring is already available.
+- The database connection is described as confirmed only if the health page still reports `connected.database: true`.
+- No private credentials, user passwords, or personal student information are visible.
+- The live portal and repository links are readable on the end card.
