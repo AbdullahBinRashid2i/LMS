@@ -6,7 +6,7 @@ A responsive React and Node.js learning portal prototype for GUTech students, in
 
 Public Vercel deployment: https://gutech-lms-portal-two.vercel.app/.
 
-The frontend and Node API are deployed on Vercel. To activate live data, run the two Supabase migrations in `Backend/supabase/migrations/` and set the API's private `SUPABASE_SERVICE_ROLE_KEY` environment variable in Vercel. Until both steps are complete, the site will show a database setup notice.
+The frontend and Node API are deployed on Vercel. To activate live data, run all three Supabase migrations in `Backend/supabase/migrations/` and set the API's private `SUPABASE_SERVICE_ROLE_KEY` environment variable in Vercel. Until both steps are complete, the site will show a database setup notice.
 
 ## Project layout
 
@@ -45,6 +45,7 @@ Node.js 20 or newer and npm. A Supabase project is required for authentication a
 3. In Supabase Dashboard → **SQL Editor**, run these files in order:
    1. `Backend/supabase/migrations/202610300001_initial_schema.sql`
    2. `Backend/supabase/migrations/202610300002_live_lms.sql`
+   3. `Backend/supabase/migrations/202611010001_explicit_data_api_grants.sql`
 4. In separate terminal windows:
    - `cd Backend`, then `npm ci`, then `npm run dev` (API at `http://localhost:4000`).
    - `cd Frontend`, then `npm ci`, then `npm run dev` (site at `http://localhost:5173`).
@@ -60,7 +61,7 @@ The public frontend and Express API use separate Vercel projects connected to th
 
 ### Activate Supabase
 
-1. In Supabase Dashboard → **SQL Editor**, run `Backend/supabase/migrations/202610300001_initial_schema.sql`, then `Backend/supabase/migrations/202610300002_live_lms.sql`.
+1. In Supabase Dashboard → **SQL Editor**, run these SQL files in order: `Backend/supabase/migrations/202610300001_initial_schema.sql`, `Backend/supabase/migrations/202610300002_live_lms.sql`, then `Backend/supabase/migrations/202611010001_explicit_data_api_grants.sql`.
 2. In Vercel, open the `gutech-lms-api` project → **Settings → Environment Variables**.
 3. Add `SUPABASE_SERVICE_ROLE_KEY` as a **Sensitive** variable for **Production**. Get the private service_role/secret key from Supabase Dashboard → **Project Settings → API Keys**. Keep it only in the backend project; never add it to GitHub, the frontend project, or a chat message.
 4. Redeploy the API. Check `https://gutech-lms-api-puce.vercel.app/health`; the response should show `connected.database: true`.
